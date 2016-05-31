@@ -163,6 +163,11 @@ public class MyList<E> implements Cloneable, Iterable<E>, Visitable<E> {
          return false;
       return true;
    }
+   /**
+    * erlaubt einem Visitor v, jedes Element der Liste zu durchlaufen
+    * @param Visitor v  Visitor-Objekt, dass die Liste besucht
+    * @throws NoSuchElementException  wenn Liste leer
+    */
    @Override
    public void accept(Visitor<E> v) {
    	
@@ -176,15 +181,22 @@ public class MyList<E> implements Cloneable, Iterable<E>, Visitable<E> {
    		
    		current=current.next;
    		
-   		System.out.print(" "+current.o+" |");
    		
    	}
    }
-
+/**
+ * liefert einen ListIterator
+ * @return  neuer ListIterator
+ */
 @Override
 public Iterator<E> iterator() {
 	return new ListIterator();
 }
+/**
+ * implementiert das Interface Iterator
+ * @author sHilg_000
+ *
+ */
 public class ListIterator implements Iterator<E>{
 	private MyEntry<E> previous;
 	private MyEntry<E> obj;
@@ -196,10 +208,19 @@ public class ListIterator implements Iterator<E>{
 		this.next=begin.next;
 		this.previous=null;
 	}
-	
+	/**
+	 * liefert zurueck, ob das aktuelle Element das letzte der Liste ist
+	 * @return boolean true, wenn nicht das letzte Element, sonst false
+	 */
 	public boolean hasNext(){
 		return next!=null;
 	}
+	/**
+	 * liefert das naechste Objekt in der Liste
+	 * @return E  naechstes Objekt in der Liste
+	 * @throws NoSuchElementException wenn kein naechstes Element
+	 * @throws RuntimeException wenn Liste durch parallelen Zugriff modifiziert wurde
+	 */
 	public E next(){
 	
 		if(next==null){
@@ -213,7 +234,11 @@ public class ListIterator implements Iterator<E>{
 		next=next.next;
 		return obj.o;
 		}
-	
+	/**
+	 * entfernt das aktuelle Objekt in der Liste
+	 * @throws RuntimeException wenn Liste durch parallelen Zugriff modifiziert wurde
+	 * @throws NoSuchElementException wenn am Ende der Liste oder next() nach dem letzten delete() nicht aufgerufen wurde
+	 */
 	public void remove(){
 		if(failCounter!=counter){
 			throw new RuntimeException("Liste wurde modifiziert!");
@@ -229,18 +254,7 @@ public class ListIterator implements Iterator<E>{
 	}
 	}
 
-public class ListVisitor<E> implements Visitor<E> {
-	
-	
-	
-	public boolean visit(E o){
-		
-		System.out.println(" "+o);
-		
-			return true;
-		
-	}
-}
+
 }
 		
 

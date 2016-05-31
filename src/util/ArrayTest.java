@@ -14,7 +14,7 @@ public class ArrayTest {
 			test=(array[i]==iter.next());
 			i++;
 		}
-		System.out.println("Nimmt alle Integers auf?: "+test);
+		System.out.println("Nimmt alle Integer auf?: "+test);
 		
 		p.reset();
 		Integer hilf=null;
@@ -68,6 +68,17 @@ public class ArrayTest {
 		finally{
 			System.out.println("NoSuchElementException(Iterator am Ende der Datei): "+test);
 		}
+		
+		System.out.println("Existiert Dateipfad?: "+p.pathExists());
+		
+		test=true;
+		try{
+			p.close();
+		}
+		catch(RuntimeException e){
+			test=false;
+		}
+		System.out.println("closeable?: "+test);
 		
 	}
 

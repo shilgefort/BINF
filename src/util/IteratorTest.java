@@ -76,7 +76,7 @@ public class IteratorTest {
 		catch(RuntimeException e){
 			test=true;
 		}
-		System.out.println("Paralleler Zugriff: "+test);
+		System.out.println("Bricht ab bei parallelem Zugriff: "+test);
 		
 		test=false;
 		iter=list.iterator();
